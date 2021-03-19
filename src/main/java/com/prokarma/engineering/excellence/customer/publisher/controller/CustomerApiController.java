@@ -2,6 +2,7 @@ package com.prokarma.engineering.excellence.customer.publisher.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prokarma.engineering.excellence.customer.publisher.domain.Customer;
+import com.prokarma.engineering.excellence.customer.publisher.domain.CustomerSuccessResponse;
 
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-03-17T09:59:05.362Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-03-19T12:04:46.596Z")
 
 @Controller
 public class CustomerApiController implements CustomerApi {
@@ -38,9 +39,27 @@ public class CustomerApiController implements CustomerApi {
         this.request = request;
     }
 
-    public ResponseEntity<Void> addCustomer(@ApiParam(value = "Customer object that needs to be stored" ,required=true )  @Valid @RequestBody Customer body) {
+    public ResponseEntity<CustomerSuccessResponse> addCustomer(@ApiParam(value = "Authorization Token" ,required=true, defaultValue="ds4adadd-fjfj44fgf-rewr3ere-ddd32dfd") @RequestHeader(value="Authorization", required=true) String authorization,@ApiParam(value = "Unique identifier of the request" ,required=true, defaultValue="12345") @RequestHeader(value="Activity-Id", required=true) String activityId,@ApiParam(value = "Application Id of the request" ,required=true, defaultValue="12345") @RequestHeader(value="Application-Id", required=true) String applicationId,@ApiParam(value = "Customer object that needs to be stored" ,required=true )  @Valid @RequestBody Customer body) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        if (accept != null && accept.contains("application/json")) {
+            try {
+                return new ResponseEntity<CustomerSuccessResponse>(objectMapper.readValue("{  \"message\" : \"message\",  \"status\" : \"success\"}", CustomerSuccessResponse.class), HttpStatus.NOT_IMPLEMENTED);
+            } catch (IOException e) {
+                log.error("Couldn't serialize response for content type application/json", e);
+                return new ResponseEntity<CustomerSuccessResponse>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        if (accept != null && accept.contains("application/xml")) {
+            try {
+                return new ResponseEntity<CustomerSuccessResponse>(objectMapper.readValue("<CustomerSuccessResponse>  <status>aeiou</status>  <message>aeiou</message></CustomerSuccessResponse>", CustomerSuccessResponse.class), HttpStatus.NOT_IMPLEMENTED);
+            } catch (IOException e) {
+                log.error("Couldn't serialize response for content type application/xml", e);
+                return new ResponseEntity<CustomerSuccessResponse>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<CustomerSuccessResponse>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 }

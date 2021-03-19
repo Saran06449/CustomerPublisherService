@@ -18,24 +18,29 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.prokarma.engineering.excellence.customer.publisher.domain.Customer;
+import com.prokarma.engineering.excellence.customer.publisher.domain.CustomerFailureResponse;
+import com.prokarma.engineering.excellence.customer.publisher.domain.CustomerSuccessResponse;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-03-17T09:59:05.362Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-03-19T12:04:46.596Z")
 
 @Validated
 @Api(value = "customer", description = "the customer API")
 @RequestMapping(value = "/v2")
 public interface CustomerApi {
 
-    @ApiOperation(value = "Add a new Customer", nickname = "addCustomer", notes = "", tags={ "customer", })
+    @ApiOperation(value = "Add a new Customer", nickname = "addCustomer", notes = "", response = CustomerSuccessResponse.class, tags={ "customer", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 400, message = "Invalid customer supplied") })
+        @ApiResponse(code = 200, message = "Success", response = CustomerSuccessResponse.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = CustomerFailureResponse.class),
+        @ApiResponse(code = 404, message = "Not Found", response = CustomerFailureResponse.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = CustomerFailureResponse.class) })
     @RequestMapping(value = "/customer",
-        produces = { "application/xml", "application/json" }, 
+        produces = { "application/json", "application/xml" }, 
         consumes = { "application/json", "application/xml" },
         method = RequestMethod.POST)
-    ResponseEntity<Void> addCustomer(@ApiParam(value = "Customer object that needs to be stored" ,required=true )  @Valid @RequestBody Customer body);
+    ResponseEntity<CustomerSuccessResponse> addCustomer(@ApiParam(value = "Authorization Token" ,required=true, defaultValue="ds4adadd-fjfj44fgf-rewr3ere-ddd32dfd") @RequestHeader(value="Authorization", required=true) String authorization,@ApiParam(value = "Unique identifier of the request" ,required=true, defaultValue="12345") @RequestHeader(value="Activity-Id", required=true) String activityId,@ApiParam(value = "Application Id of the request" ,required=true, defaultValue="12345") @RequestHeader(value="Application-Id", required=true) String applicationId,@ApiParam(value = "Customer object that needs to be stored" ,required=true )  @Valid @RequestBody Customer body);
 
 }
