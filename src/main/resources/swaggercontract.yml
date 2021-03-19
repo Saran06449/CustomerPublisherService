@@ -1,0 +1,114 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Swagger store"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/v2"
+tags:
+- name: "customer"
+  description: "Everything about Customer"
+schemes:
+- "https"
+- "http"
+paths:
+  /customer:
+    post:
+      tags:
+      - "customer"
+      summary: "Add a new Customer"
+      description: ""
+      operationId: "addCustomer"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Customer object that needs to be stored"
+        required: true
+        schema:
+          $ref: "#/definitions/Customer"
+      - in: "header"
+        name: "Authorization"
+        type: "string"
+      - in: "header"
+        name: "Activity-Id"
+        type: "string"
+      - in: "header"
+        name: "Application-Id"
+        type: "string"
+      responses:
+        "400":
+          description: "Invalid customer supplied"
+definitions:
+  Customer:
+    type: "object"
+    required:
+    - "customerNumber"
+    - "firstName"
+    - "lastName"
+    - "birthdate"
+    - "country"
+    - "countryCode"
+    - "mobileNumber"
+    - "email"
+    - "customerStatus"
+    - "address"
+    properties:
+      customerNumber:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      birthdate:
+        type: "string"
+        format: "date-time"
+      country:
+        type: "string"
+      countryCode:
+        type: "string"
+      mobileNumber:
+        type: "integer"
+      email:
+        type: "string"
+      customerStatus:
+        type: "string"
+        enum:
+        - "Open"
+        - "Close"
+        - "Suspended"
+        - "Restored"
+      address:
+         $ref: "#/definitions/Address"
+    xml:
+      name: "Customer"
+  Address:
+    type: "object"
+    required:
+    - "addressLine1"
+    - "postalCode"
+    properties:
+      addressLine1:
+        type: "string"
+      addressLine2:
+        type: "string"
+      street:
+        type: "string"
+      postalCode:
+        type: "integer"
+    xml:
+      name: "Address"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
