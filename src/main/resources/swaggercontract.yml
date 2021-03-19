@@ -29,27 +29,50 @@ paths:
       - "application/json"
       - "application/xml"
       produces:
-      - "application/xml"
       - "application/json"
+      - "application/xml"
       parameters:
+      - in: "header"
+        name: "Authorization"
+        type: "string"
+        required: true
+        default: "ds4adadd-fjfj44fgf-rewr3ere-ddd32dfd"
+        description: "Authorization Token"
+      - in: "header"
+        name: "Activity-Id"
+        type: "string"
+        required: true
+        description: "Unique identifier of the request"
+        default: "12345"
+      - in: "header"
+        name: "Application-Id"
+        type: "string"
+        required: true
+        description: "Application Id of the request"
+        default: "12345"
       - in: "body"
         name: "body"
         description: "Customer object that needs to be stored"
         required: true
         schema:
           $ref: "#/definitions/Customer"
-      - in: "header"
-        name: "Authorization"
-        type: "string"
-      - in: "header"
-        name: "Activity-Id"
-        type: "string"
-      - in: "header"
-        name: "Application-Id"
-        type: "string"
       responses:
-        "400":
-          description: "Invalid customer supplied"
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/CustomerSuccessResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/CustomerFailureResponse"
+        "404":
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/CustomerFailureResponse"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/CustomerFailureResponse"
 definitions:
   Customer:
     type: "object"
@@ -109,6 +132,36 @@ definitions:
         type: "integer"
     xml:
       name: "Address"
+      
+  CustomerSuccessResponse:
+    type: "object"
+    required:
+    - "status"
+    - "message"
+    properties:
+      status:
+        type: "string"
+        default: "success"
+      message:
+        type: "string"
+    xml:
+      name: "CustomerSuccessResponse"
+  CustomerFailureResponse:
+    type: "object"
+    required:
+    - "status"
+    - "message"
+    properties:
+      status:
+        type: "string"
+        default: "error"
+      message:
+        type: "string"
+      error_type:
+        type: "string"
+        default: "TokenException"
+    xml:
+      name: "CustomerFailureResponse"
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
