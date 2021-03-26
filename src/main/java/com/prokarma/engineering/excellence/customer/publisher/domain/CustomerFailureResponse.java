@@ -2,18 +2,15 @@ package com.prokarma.engineering.excellence.customer.publisher.domain;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
  * CustomerFailureResponse
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-03-19T12:04:46.596Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-03-22T06:13:52.948Z")
 
 
 public class CustomerFailureResponse   {
@@ -23,7 +20,7 @@ public class CustomerFailureResponse   {
   @JsonProperty("message")
   private String message = null;
 
-  @JsonProperty("error_type")
+  @JsonProperty("errorType")
   private String errorType = "TokenException";
 
   public CustomerFailureResponse status(String status) {

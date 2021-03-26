@@ -1,27 +1,23 @@
 package com.prokarma.engineering.excellence.customer.publisher.domain;
 
+import java.util.Date;
 import java.util.Objects;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.OffsetDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
-import org.threeten.bp.OffsetDateTime;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-
-import io.swagger.annotations.ApiModelProperty;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 
 /**
  * Customer
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-03-17T09:59:05.362Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-03-22T06:13:52.948Z")
 
 
 public class Customer   {
@@ -35,7 +31,7 @@ public class Customer   {
   private String lastName = null;
 
   @JsonProperty("birthdate")
-  private OffsetDateTime birthdate = null;
+  private Date birthdate = null;
 
   @JsonProperty("country")
   private String country = null;
@@ -102,7 +98,6 @@ public class Customer   {
   @ApiModelProperty(required = true, value = "")
   @NotNull(message = "The field customerNumber is required")
   @Pattern(regexp = "^[A-Z]\\d{9}$", message = "The field customerNumber must be a string with maximum lenght of 10.")
-
   public String getCustomerNumber() {
     return customerNumber;
   }
@@ -123,7 +118,6 @@ public class Customer   {
   @ApiModelProperty(required = true, value = "")
   @NotNull(message = "The field firstName is required")
   @Size(min = 10, max = 50, message = "The field firstName must be a string with minimun length of 10 and maximum length of 50.")
-
   public String getFirstName() {
     return firstName;
   }
@@ -144,7 +138,6 @@ public class Customer   {
   @ApiModelProperty(required = true, value = "")
   @NotNull(message = "The field lastName is required")
   @Size(min = 10, max = 50, message = "The field lastName must be a string with minimun length of 10 and maximum length of 50.")
-
   public String getLastName() {
     return lastName;
   }
@@ -153,7 +146,7 @@ public class Customer   {
     this.lastName = lastName;
   }
 
-  public Customer birthdate(OffsetDateTime birthdate) {
+  public Customer birthdate(Date birthdate) {
     this.birthdate = birthdate;
     return this;
   }
@@ -164,14 +157,12 @@ public class Customer   {
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull(message = "The field birthDate is required")
-  @DateTimeFormat(pattern = "DD-MM-YYYY")
-  @Valid
-
-  public OffsetDateTime getBirthdate() {
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy")
+  public Date getBirthdate() {
     return birthdate;
   }
 
-  public void setBirthdate(OffsetDateTime birthdate) {
+  public void setBirthdate(Date birthdate) {
     this.birthdate = birthdate;
   }
 
@@ -186,8 +177,6 @@ public class Customer   {
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull(message = "The field country is required")
-
-
   public String getCountry() {
     return country;
   }
@@ -208,7 +197,6 @@ public class Customer   {
   @ApiModelProperty(required = true, value = "")
   @NotNull(message = "The field countryCode is required")
   @Pattern(regexp = "^[A-Z][A-Z]$", message = "The field countryCode must be a string with maximum lenght of 2.")
-
   public String getCountryCode() {
     return countryCode;
   }
@@ -228,8 +216,7 @@ public class Customer   {
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull(message = "The field mobileNumber is required")
-  @Pattern(regexp = "^[1-9][0-9]{9}$", message = "The field mobileNumber must be a integer with maximum lenght of 10.")
-
+  @Pattern(regexp = "^[0-9]{10}$", message = "The field mobileNumber must be a integer with maximum lenght of 10.")
   public Integer getMobileNumber() {
     return mobileNumber;
   }
@@ -249,8 +236,8 @@ public class Customer   {
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull(message = "The field email is required")
-  @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9-.]*@gmail.com{0,50}$", message = "The field email must be a valid with maximum lenght of 50.")
-
+  @Email(message = "The field email must be a valid with maximum lenght of 50.")
+  @Size(max = 50, message = "The field email is invalid. The field email should be a string with maximum size 50")
   public String getEmail() {
     return email;
   }
@@ -269,7 +256,7 @@ public class Customer   {
    * @return customerStatus
   **/
   @ApiModelProperty(required = true, value = "")
-  @NotNull(message = "The field customerStatus is required")
+  @NotNull
 
 
   public CustomerStatusEnum getCustomerStatus() {

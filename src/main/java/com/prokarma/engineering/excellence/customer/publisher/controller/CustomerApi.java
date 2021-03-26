@@ -7,6 +7,7 @@ package com.prokarma.engineering.excellence.customer.publisher.controller;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ import com.prokarma.engineering.excellence.customer.publisher.domain.CustomerSuc
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-03-19T12:04:46.596Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-03-22T06:13:52.948Z")
 
 @Validated
 @Api(value = "customer", description = "the customer API")
@@ -41,6 +42,6 @@ public interface CustomerApi {
         produces = { "application/json", "application/xml" }, 
         consumes = { "application/json", "application/xml" },
         method = RequestMethod.POST)
-    ResponseEntity<CustomerSuccessResponse> addCustomer(@ApiParam(value = "Authorization Token" ,required=true, defaultValue="ds4adadd-fjfj44fgf-rewr3ere-ddd32dfd") @RequestHeader(value="Authorization", required=true) String authorization,@ApiParam(value = "Unique identifier of the request" ,required=true, defaultValue="12345") @RequestHeader(value="Activity-Id", required=true) String activityId,@ApiParam(value = "Application Id of the request" ,required=true, defaultValue="12345") @RequestHeader(value="Application-Id", required=true) String applicationId,@ApiParam(value = "Customer object that needs to be stored" ,required=true )  @Valid @RequestBody Customer body);
+    ResponseEntity<CustomerSuccessResponse> addCustomer(@ApiParam(value = "Authorization Token" ,required=true, defaultValue="ds4adadd-fjfj44fgf-rewr3ere-ddd32dfd") @RequestHeader(value="Authorization", required=true) String authorization,@ApiParam(value = "Unique identifier of the request" ,required=true, defaultValue="12345") @RequestHeader(value="Activity-Id", required=true) String activityId,@ApiParam(value = "Transaction Id of the request" ,required=true, defaultValue="12345") @RequestHeader(value="Transaction-Id", required=true) String transactionId,@ApiParam(value = "Customer object that needs to be stored" ,required=true )  @Valid @RequestBody Customer body);
 
 }

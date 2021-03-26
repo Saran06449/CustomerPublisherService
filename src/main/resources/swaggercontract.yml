@@ -45,10 +45,10 @@ paths:
         description: "Unique identifier of the request"
         default: "12345"
       - in: "header"
-        name: "Application-Id"
+        name: "Transaction-Id"
         type: "string"
         required: true
-        description: "Application Id of the request"
+        description: "Transaction Id of the request"
         default: "12345"
       - in: "body"
         name: "body"
@@ -157,7 +157,7 @@ definitions:
         default: "error"
       message:
         type: "string"
-      error_type:
+      errorType:
         type: "string"
         default: "TokenException"
     xml:
